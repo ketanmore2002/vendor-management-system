@@ -253,7 +253,7 @@ Sure, here are the steps for installation:
 
 1. **Clone the Repository:**
    ```
-   git clone [https://github.com/ketanmore2002/vendor-management-system/](https://github.com/ketanmore2002/vendor-management-system/)
+   git clone https://github.com/ketanmore2002/vendor-management-system/
    ```
 
 2. **Navigate to the Project Directory:**
