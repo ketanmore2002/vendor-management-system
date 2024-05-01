@@ -1,7 +1,7 @@
 
 # Vendor Management System
 
-This project is backend for Vendor System Management. This project has various APIs protected with JSON Web Token.
+This project is backend for Vendor Management System. This project has various APIs protected with JSON Web Token.
 
 ## API Reference
 
