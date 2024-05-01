@@ -1,12 +1,12 @@
 
-# Vendor System Management
+# Vendor Management System
 
 This project is backend for Vendor System Management. This project has various APIs protected with JSON Web Token.
 
 ## API Reference
 
 
-```http
+```
   POST /api/token/
 ```
 
@@ -29,7 +29,7 @@ Explanation:
 - Both the access token and refresh token are required for secure and continuous authentication.
 
 
-```http
+```
   GET /api/vendors/
 ```
 
@@ -42,7 +42,7 @@ Retrieves a list of vendors.
 
 ---
 
-```http
+```
   POST /api/vendors/
 ```
 
@@ -71,7 +71,7 @@ Explanation:
 - For the `POST /api/vendors/` endpoint, you need to include the Bearer token obtained from the token endpoint in the Authorization header of the request. Additionally, you need to provide the required information for creating a new vendor in the request body.
 
 
-```http
+```
   GET /api/vendors/<int:id>/
 ```
 
@@ -84,7 +84,7 @@ Description:
 Retrieves details of a specific vendor identified by its ID.
 
 
-```http
+```
   PUT /api/vendors/<int:id>/
 ```
 
@@ -108,7 +108,7 @@ Description:
 Updates the details of a specific vendor identified by its ID. Requires authentication using a Bearer token obtained from the token endpoint.
 
 
-```http
+```
   DELETE /api/vendors/<int:id>/
 ```
 
@@ -122,7 +122,7 @@ Deletes a specific vendor identified by its ID. Requires authentication using a 
 
 
 
-```http
+```
   GET /api/purchase_orders/
 ```
 
@@ -134,7 +134,7 @@ Description:
 Retrieves a list of purchase orders.
 
 
-```http
+```
   POST /api/purchase_orders/
 ```
 
@@ -158,7 +158,7 @@ Retrieves a list of purchase orders.
 Description:
 Creates a new purchase order. Requires authentication using a Bearer token obtained from the token endpoint.
 
-```http
+```
   GET /api/purchase_orders/<int:id>/
 ```
 
@@ -171,7 +171,7 @@ Description:
 Retrieves details of a specific purchase order identified by its ID.
 
 
-```http
+```
   PUT /api/purchase_orders/<int:id>/
 ```
 
@@ -197,7 +197,7 @@ Description:
 Updates the details of a specific purchase order identified by its ID. Requires authentication using a Bearer token obtained from the token endpoint.
 
 
-```http
+```
   DELETE /api/purchase_orders/<int:id>/
 ```
 
@@ -209,7 +209,7 @@ Updates the details of a specific purchase order identified by its ID. Requires 
 Description:
 Deletes a specific purchase order identified by its ID. Requires authentication using a Bearer token obtained from the token endpoint.
 
-```http
+```
   GET /api/vendors/<int:vendor_id>/performance/
 ```
 
@@ -229,7 +229,7 @@ Explanation:
 - You need to provide the `vendor_id` parameter in the URL to specify the vendor for which you want to retrieve the performance metrics.
 
 
-```http
+```
   POST /api/purchase_orders/<int:po_id>/acknowledge/
 ```
 
@@ -302,3 +302,16 @@ Sure, here are the steps for installation:
 10. **Access the Admin Panel (Optional):**
     - Go to `http://localhost:8000/admin/` in your web browser.
     - Log in with the superuser credentials created in step 7.
+
+
+
+## FAQ
+
+#### Question 1
+
+Answer 1
+
+#### Question 2
+
+Answer 2
+
