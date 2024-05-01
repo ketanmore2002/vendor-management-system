@@ -95,10 +95,10 @@ Retrieves details of a specific vendor identified by its ID.
 
 | Body Parameter | Type     | Description                                |
 | :------------- | :------- | :----------------------------------------- |
-| `name`         | `string` | **Optional**. Updated name of the vendor.  |
-| `contact_details`| `string`| **Optional**. Updated contact information of the vendor. |
-| `address`      | `string` | **Optional**. Updated physical address of the vendor. |
-| `vendor_code`  | `string` | **Optional**. Updated unique identifier for the vendor. |
+| `name`         | `string` | **Required**. Updated name of the vendor.  |
+| `contact_details`| `string`| **Required**. Updated contact information of the vendor. |
+| `address`      | `string` | **Required**. Updated physical address of the vendor. |
+| `vendor_code`  | `string` | **Required**. Updated unique identifier for the vendor. |
 | `on_time_delivery_rate`| `float`| **Optional**. Updated percentage of on-time deliveries. |
 | `quality_rating_avg`| `float`| **Optional**. Updated average rating of quality based on purchase orders. |
 | `average_response_time`| `float`| **Optional**. Updated average time taken to acknowledge purchase orders. |
@@ -182,16 +182,16 @@ Retrieves details of a specific purchase order identified by its ID.
 
 | Body Parameter    | Type     | Description                                    |
 | :---------------- | :------- | :--------------------------------------------- |
-| `po_number`       | `string` | **Optional**. Updated unique number identifying the purchase order. |
-| `vendor`          | `integer`| **Optional**. Updated ID of the vendor associated with the purchase order. |
-| `order_date`      | `string` | **Optional**. Updated date when the order was placed (in ISO 8601 format). |
-| `delivery_date`   | `string` | **Optional**. Updated expected or actual delivery date of the order (in ISO 8601 format). |
-| `items`           | `array`  | **Optional**. Updated details of items ordered (JSON array of objects). |
-| `quantity`        | `integer`| **Optional**. Updated total quantity of items in the purchase order. |
-| `status`          | `string` | **Optional**. Updated current status of the purchase order (e.g., "pending", "completed", "canceled"). |
-| `quality_rating`  | `float`  | **Optional**. Updated rating given to the vendor for this purchase order. |
-| `issue_date`      | `string` | **Optional**. Updated timestamp when the purchase order was issued to the vendor (in ISO 8601 format). |
-| `acknowledgment_date` | `string` | **Optional**. Updated timestamp when the vendor acknowledged the purchase order (in ISO 8601 format). |
+| `po_number`       | `string` | **Required**. Updated unique number identifying the purchase order. |
+| `vendor`          | `integer`| **Required**. Updated ID of the vendor associated with the purchase order. |
+| `order_date`      | `string` | **Required**. Updated date when the order was placed (in ISO 8601 format). |
+| `delivery_date`   | `string` | **Required**. Updated expected or actual delivery date of the order (in ISO 8601 format). |
+| `items`           | `array`  | **Required**. Updated details of items ordered (JSON array of objects). |
+| `quantity`        | `integer`| **Required**. Updated total quantity of items in the purchase order. |
+| `status`          | `string` | **Required**. Updated current status of the purchase order (e.g., "pending", "completed", "canceled"). |
+| `quality_rating`  | `float`  | **Required**. Updated rating given to the vendor for this purchase order. |
+| `issue_date`      | `string` | **Required**. Updated timestamp when the purchase order was issued to the vendor (in ISO 8601 format). |
+| `acknowledgment_date` | `string` | **Required**. Updated timestamp when the vendor acknowledged the purchase order (in ISO 8601 format). |
 
 Description:
 Updates the details of a specific purchase order identified by its ID. Requires authentication using a Bearer token obtained from the token endpoint.
