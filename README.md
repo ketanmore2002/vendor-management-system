@@ -302,3 +302,7 @@ Sure, here are the steps for installation:
 10. **Access the Admin Panel (Optional):**
     - Go to `http://localhost:8000/admin/` in your web browser.
     - Log in with the superuser credentials created in step 7.
+
+11. **Existing User Credentials**
+    - Username : admin
+    - Password : admin
