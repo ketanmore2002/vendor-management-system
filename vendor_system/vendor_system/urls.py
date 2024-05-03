@@ -16,7 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+from vendor_app.views import VendorViewSet,PurchaseOrderViewSet
+from rest_framework import routers
+
+
+router = routers.DefaultRouter()
+router.register(r'vendors', VendorViewSet)
+router.register(r'purchase_orders', PurchaseOrderViewSet)
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('vendor_app.urls')),
+    path('api/', include(router.urls)),
 ]

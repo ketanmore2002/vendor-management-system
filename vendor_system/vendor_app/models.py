@@ -5,7 +5,6 @@ from django.db.models import JSONField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime
-from django.db import transaction
 
 # Create your models here.
 
@@ -48,7 +47,6 @@ class HistoricalPerformance(models.Model):
     average_response_time = models.FloatField()
     fulfillment_rate = models.FloatField()
 
-    # @transaction.atomic
     @classmethod
     def update_performance_metrics(cls, vendor_id):
         completed_pos = PurchaseOrder.objects.filter(vendor_id=vendor_id, status='completed')

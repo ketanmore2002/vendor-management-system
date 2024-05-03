@@ -15,7 +15,6 @@ class PurchaseOrderSerializer(serializers.ModelSerializer):
 
 
 
-
 class VendorPerformanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = HistoricalPerformance
