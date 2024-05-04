@@ -11,6 +11,7 @@ from .models import Vendor
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
+from django.db import transaction
 
 class MyTokenObtainPairView(TokenObtainPairView):
     pass
@@ -47,11 +48,17 @@ def get_vendor_performance(request, vendor_id):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def acknowledge_purchase_order(request, po_id):
-    purchase_order = get_object_or_404(PurchaseOrder, pk=po_id)
+    try:
+        purchase_order = PurchaseOrder.objects.select_for_update().get(pk=po_id)
+    except PurchaseOrder.DoesNotExist:
+        return Response({"error": "Purchase order does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
     if purchase_order.acknowledgment_date:
         return Response({"error": "Purchase order is already acknowledged"}, status=status.HTTP_400_BAD_REQUEST)
-    purchase_order.acknowledgment_date = timezone.now()
-    purchase_order.save(update_fields=['acknowledgment_date'])
-    HistoricalPerformance.update_performance_metrics(purchase_order.vendor_id)
+
+    with transaction.atomic():
+        purchase_order.acknowledgment_date = timezone.now()
+        purchase_order.save(update_fields=['acknowledgment_date'])
+        HistoricalPerformance.update_performance_metrics(purchase_order.vendor_id)
 
     return Response({"message": "Purchase order acknowledged successfully"}, status=status.HTTP_200_OK)

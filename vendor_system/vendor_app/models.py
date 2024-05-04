@@ -5,6 +5,7 @@ from django.db.models import JSONField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime
+from django.db import transaction
 
 # Create your models here.
 
@@ -49,29 +50,30 @@ class HistoricalPerformance(models.Model):
 
     @classmethod
     def update_performance_metrics(cls, vendor_id):
-        completed_pos = PurchaseOrder.objects.filter(vendor_id=vendor_id, status='completed')
-        total_completed_pos = completed_pos.count()
-        on_time_deliveries = completed_pos.filter(delivery_date__lte=models.F('delivery_date')).count()
-        on_time_delivery_rate = (on_time_deliveries / total_completed_pos) * 100 if total_completed_pos > 0 else 0
+        with transaction.atomic():
+            completed_pos = PurchaseOrder.objects.filter(vendor_id=vendor_id, status='completed')
+            total_completed_pos = completed_pos.count()
+            on_time_deliveries = completed_pos.filter(delivery_date__lte=models.F('delivery_date')).count()
+            on_time_delivery_rate = (on_time_deliveries / total_completed_pos) * 100 if total_completed_pos > 0 else 0
 
-        quality_rating_avg = completed_pos.aggregate(models.Avg('quality_rating'))['quality_rating__avg'] or 0
+            quality_rating_avg = completed_pos.aggregate(models.Avg('quality_rating'))['quality_rating__avg'] or 0
 
-        acknowledged_pos = completed_pos.filter(acknowledgment_date__isnull=False)
-        response_times = acknowledged_pos.annotate(response_time=models.F('acknowledgment_date') - models.F('issue_date')).aggregate(models.Avg('response_time'))['response_time__avg']
-        average_response_time = (response_times.total_seconds() / 3600) if response_times else 0
+            acknowledged_pos = completed_pos.filter(acknowledgment_date__isnull=False)
+            response_times = acknowledged_pos.annotate(response_time=models.F('acknowledgment_date') - models.F('issue_date')).aggregate(models.Avg('response_time'))['response_time__avg']
+            average_response_time = (response_times.total_seconds() / 3600) if response_times else 0
 
-        total_pos = PurchaseOrder.objects.filter(vendor_id=vendor_id).count()
-        fulfilled_pos = PurchaseOrder.objects.filter(vendor_id=vendor_id, status='completed').count()
-        fulfillment_rate = (fulfilled_pos / total_pos) * 100 if total_pos > 0 else 0
+            total_pos = PurchaseOrder.objects.filter(vendor_id=vendor_id).count()
+            fulfilled_pos = PurchaseOrder.objects.filter(vendor_id=vendor_id, status='completed').count()
+            fulfillment_rate = (fulfilled_pos / total_pos) * 100 if total_pos > 0 else 0
 
-        cls.objects.create(
-            vendor_id=vendor_id,
-            date=datetime.now(),
-            on_time_delivery_rate=on_time_delivery_rate,
-            quality_rating_avg=quality_rating_avg,
-            average_response_time=average_response_time,
-            fulfillment_rate=fulfillment_rate
-        )
+            cls.objects.create(
+                vendor_id=vendor_id,
+                date=datetime.now(),
+                on_time_delivery_rate=on_time_delivery_rate,
+                quality_rating_avg=quality_rating_avg,
+                average_response_time=average_response_time,
+                fulfillment_rate=fulfillment_rate
+            )
 
 @receiver(post_save, sender=PurchaseOrder)
 def update_performance_metrics(sender, instance, **kwargs):
