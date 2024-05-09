@@ -249,8 +249,6 @@ Explanation:
 - You need to provide the `po_id` parameter in the URL to specify the purchase order that you want to acknowledge.
 ## Installation
 
-Sure, here are the steps for installation:
-
 1. **Clone the Repository:**
    ```
    git clone https://github.com/ketanmore2002/vendor-management-system/
